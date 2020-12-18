@@ -29,7 +29,7 @@
           :checked="vatChecked"
           @input="vatChanged"
         >
-          Price includes VAT ({{ field.vat }}%)
+          {{ __('currencyVatField.priceIncludesVat') }} ({{ field.vat }}%)
         </checkbox-with-label>
       </div>
     </template>
@@ -113,8 +113,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.vat-checkbox {
-}
-</style>
