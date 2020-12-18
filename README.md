@@ -12,12 +12,13 @@ This [Laravel Nova](https://nova.laravel.com/) package allows you to create and 
 
 ## Features
 
-An extension of Nova's default Currency field that provides a checkbox for toggling between VAT and non-VAT prices.
+An extension of Nova's default Currency field that provides a checkbox for toggling between VAT and non-VAT prices on the Form view.
+
+Renders the default Currency field on Index and Detail views.
 
 ## Screenshots
 
 ![Form page](./docs/form.png)
-![Details page](./docs/detail.png)
 
 ## Installation
 
@@ -30,13 +31,13 @@ composer require optimistdigital/nova-currency-vat-field
 ## Usage
 
 ```php
-use OptimistDigital\NovaCurrencyVatField\CurrencyVat;
+use OptimistDigital\NovaCurrencyVatField\CurrencyVAT;
 
 public function fields(Request $request) {
-    CurrencyVat::make('Price', 'price')
-      ->vat(20)
-      ->storesWithoutVat(),
-      ->storesWithVat()
+    CurrencyVAT::make('Price', 'price')
+      ->VAT(20), // Required, otherwise VAT checkbox isn't rendered
+      ->storedWithVAT(), // By default with VAT
+      ->storedWithoutVAT()
 }
 ```
 
