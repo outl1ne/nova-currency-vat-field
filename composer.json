@@ -1,0 +1,34 @@
+{
+  "name": "optimistdigital/nova-currency-vat-field",
+  "description": "A Laravel Nova Currency field extension with VAT toggle.",
+  "keywords": [
+    "laravel",
+    "nova",
+    "currency",
+    "price",
+    "vat",
+    "field"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=7.2.0",
+    "laravel/nova": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "OptimistDigital\\NovaCurrencyVatField\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "OptimistDigital\\NovaCurrencyVatField\\CurrencyVatFieldServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
