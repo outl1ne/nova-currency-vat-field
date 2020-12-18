@@ -68,6 +68,8 @@ export default {
       const precision = this.field.step ? this.field.step.split('.')[1].length : 2;
       if (!value || isNaN(value)) return void 0;
 
+      if (!this.field.vat || isNaN(this.field.vat)) return value;
+
       // Same as original, no need to do anything
       if (this.vatChecked && this.field.storedWithVat) return value;
       if (!this.vatChecked && !this.field.storedWithVat) return value;
