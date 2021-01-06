@@ -61,7 +61,9 @@ export default {
 
     fill(formData) {
       const valueToSend = this.getValueWithAdjustedVAT(this.value);
-      formData.append(this.field.attribute, valueToSend);
+
+      // NB! Always fall back to null
+      formData.append(this.field.attribute, valueToSend || null);
     },
 
     getValueWithAdjustedVAT(value) {

@@ -25,6 +25,11 @@ class CurrencyVAT extends Currency
         $this->updatesWithCheckbox(false);
     }
 
+    protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
+    {
+        $model->{$attribute} = $request->input($requestAttribute) ?? null;
+    }
+
     public function storedWithVAT($storedWithVat = true)
     {
         return $this->withMeta(['storedWithVat' => $storedWithVat]);
