@@ -16,7 +16,7 @@ class CurrencyVAT extends Currency
         parent::__construct($name, $attribute, $resolveCallback);
 
         $novaRequest = app()->make(NovaRequest::class);
-        if ($novaRequest->isResourceDetailRequest() || $novaRequest->isResourceDetailRequest()) {
+        if ($novaRequest->isResourceIndexRequest() || $novaRequest->isResourceDetailRequest()) {
             $this->component = 'currency-field';
         }
 
