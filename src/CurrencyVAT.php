@@ -1,6 +1,6 @@
 <?php
 
-namespace OptimistDigital\NovaCurrencyVatField;
+namespace Outl1ne\NovaCurrencyVatField;
 
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Http\Requests\NovaRequest;

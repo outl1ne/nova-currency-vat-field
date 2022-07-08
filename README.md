@@ -1,14 +1,14 @@
 # Nova Currency VAT Field
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/optimistdigital/nova-currency-vat-field.svg?style=flat-square)](https://packagist.org/packages/optimistdigital/nova-currency-vat-field)
-[![Total Downloads](https://img.shields.io/packagist/dt/optimistdigital/nova-currency-vat-field.svg?style=flat-square)](https://packagist.org/packages/optimistdigital/nova-currency-vat-field)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/outl1ne/nova-currency-vat-field.svg?style=flat-square)](https://packagist.org/packages/outl1ne/nova-currency-vat-field)
+[![Total Downloads](https://img.shields.io/packagist/dt/outl1ne/nova-currency-vat-field.svg?style=flat-square)](https://packagist.org/packages/outl1ne/nova-currency-vat-field)
 
 This [Laravel Nova](https://nova.laravel.com/) package allows you to create and manage menus and menu items.
 
 ## Requirements
 
-- `php: >=7.2`
-- `laravel/nova: ^3.0`
+- `php: >=8.0`
+- `laravel/nova: ^4.0`
 
 ## Features
 
@@ -25,13 +25,13 @@ Renders the default Currency field on Index and Detail views.
 Install the package in to a Laravel app that uses [Nova](https://nova.laravel.com) via composer:
 
 ```bash
-composer require optimistdigital/nova-currency-vat-field
+composer require outl1ne/nova-currency-vat-field
 ```
 
 ## Usage
 
 ```php
-use OptimistDigital\NovaCurrencyVatField\CurrencyVAT;
+use Outl1ne\NovaCurrencyVatField\CurrencyVAT;
 
 public function fields(Request $request) {
     CurrencyVAT::make('Price', 'price')

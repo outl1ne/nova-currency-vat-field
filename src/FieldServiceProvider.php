@@ -1,11 +1,11 @@
 <?php
 
-namespace OptimistDigital\NovaCurrencyVatField;
+namespace Outl1ne\NovaCurrencyVatField;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\ServiceProvider;
-use OptimistDigital\NovaTranslationsLoader\LoadsNovaTranslations;
+use Outl1ne\NovaTranslationsLoader\LoadsNovaTranslations;
 
 class CurrencyVatFieldServiceProvider extends ServiceProvider
 {
@@ -14,10 +14,11 @@ class CurrencyVatFieldServiceProvider extends ServiceProvider
     public function boot()
     {
         Nova::serving(function (ServingNova $event) {
-            Nova::script('currency-vat', __DIR__ . '/../dist/js/field.js');
+            Nova::script('currency-vat-field', __DIR__ . '/../dist/js/entry.js');
+            Nova::style('currency-vat-field', __DIR__ . '/../dist/css/entry.css');
         });
 
-        $this->loadTranslations(__DIR__ . '/../resources/lang', 'nova-currency-vat-field');
+        $this->loadTranslations(__DIR__ . '/../lang', 'nova-currency-vat-field');
     }
 
     public function register()
