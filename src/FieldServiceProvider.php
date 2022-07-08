@@ -7,7 +7,7 @@ use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\ServiceProvider;
 use Outl1ne\NovaTranslationsLoader\LoadsNovaTranslations;
 
-class CurrencyVatFieldServiceProvider extends ServiceProvider
+class FieldServiceProvider extends ServiceProvider
 {
     use LoadsNovaTranslations;
 
