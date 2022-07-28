@@ -1,18 +1,18 @@
 <template>
-  <default-field :field="field" :errors="errors" :show-help-text="showHelpText">
-    <template slot="field">
-      <div class="flex flex-col">
-        <div class="flex flex-wrap items-stretch w-full relative">
-          <div class="flex -mr-px">
+  <DefaultField :field="field" :errors="errors" :show-help-text="showHelpText">
+    <template #field>
+      <div class="o1-flex o1-flex-col">
+        <div class="o1-flex o1-flex-wrap o1-items-stretch o1-w-full o1-relative">
+          <div class="o1-flex o1--mr-px">
             <span
-              class="flex items-center leading-normal rounded rounded-r-none border border-r-0 border-60 px-3 whitespace-no-wrap bg-30 text-80 text-sm font-bold"
+              class="o1-flex o1-items-center o1-leading-normal o1-rounded o1-rounded-r-none o1-border o1-border-r-0 o1-border-gray-200 o1-px-3 o1-whitespace-no-wrap o1-bg-30 o1-text-80 o1-text-sm o1-font-bold"
             >
               {{ field.currency }}
             </span>
           </div>
 
           <input
-            class="flex-shrink flex-grow flex-auto leading-normal w-px flex-1 rounded-l-none form-control form-input form-input-bordered"
+            class="o1-flex-shrink o1-flex-grow o1-flex-auto o1-leading-normal o1-w-px o1-flex-1 o1-rounded-l-none form-control form-input form-input-bordered"
             :id="field.attribute"
             :dusk="field.attribute"
             v-bind="extraAttributes"
@@ -22,18 +22,18 @@
           />
         </div>
 
-        <checkbox-with-label
+        <CheckboxWithLabel
           :disabled="false"
-          class="vat-checkbox mt-2 text-xs"
+          class="vat-checkbox o1-mt-2 o1-text-xs"
           v-if="field.vat"
           :checked="vatChecked"
           @input="vatChanged"
         >
           {{ __('currencyVatField.priceIncludesVat') }} ({{ field.vat }}%)
-        </checkbox-with-label>
+        </CheckboxWithLabel>
       </div>
     </template>
-  </default-field>
+  </DefaultField>
 </template>
 
 <script>
