@@ -1,11 +1,11 @@
 <template>
-  <DefaultField :field="field" :errors="errors" :show-help-text="showHelpText">
+  <DefaultField :field="currentField" :errors="errors" :show-help-text="showHelpText">
     <template #field>
       <div class="o1-flex o1-flex-col">
         <div class="o1-flex o1-flex-wrap o1-items-stretch o1-w-full o1-relative">
           <div class="o1-flex o1--mr-px">
             <span
-              class="o1-flex o1-items-center o1-leading-normal o1-rounded o1-rounded-r-none o1-border o1-border-r-0 o1-border-gray-200 o1-px-3 o1-whitespace-no-wrap o1-bg-30 o1-text-80 o1-text-sm o1-font-bold"
+              class="o1-flex o1-items-center o1-leading-normal o1-rounded o1-rounded-r-none o1-border o1-border-r-0 o1-border-gray-200 o1-px-3 o1-whitespace-no-wrap o1-text-80 o1-text-sm o1-font-bold dark:o1-border-gray-700"
             >
               {{ field.currency }}
             </span>
@@ -37,10 +37,10 @@
 </template>
 
 <script>
-import { FormField, HandlesValidationErrors } from 'laravel-nova';
+import { DependentFormField, HandlesValidationErrors } from 'laravel-nova';
 
 export default {
-  mixins: [FormField, HandlesValidationErrors],
+  mixins: [DependentFormField, HandlesValidationErrors],
 
   props: ['resourceName', 'resourceId', 'field'],
 
