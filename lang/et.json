@@ -1,3 +1,5 @@
 {
-  "currencyVatField.priceIncludesVat": "Hind sisaldab käibemaksu"
+  "currencyVatField.priceIncludesVat": "Hind sisaldab käibemaksu",
+  "currencyVatField.withVat": "Käibemaksuga",
+  "currencyVatField.withoutVat": "Käibemaksuta"
 }

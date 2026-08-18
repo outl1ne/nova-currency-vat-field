@@ -1,3 +1,5 @@
 {
-  "currencyVatField.priceIncludesVat": "Price includes VAT"
+  "currencyVatField.priceIncludesVat": "Price includes VAT",
+  "currencyVatField.withVat": "With VAT",
+  "currencyVatField.withoutVat": "Without VAT"
 }

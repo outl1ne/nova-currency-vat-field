@@ -28,8 +28,8 @@
             <span>{{ __('currencyVatField.priceIncludesVat') }} ({{ field.vat }}%)</span>
           </CheckboxWithLabel>
 
-          <span v-if="valueWithVat !== null" class="o1-whitespace-nowrap">
-            {{ field.currency }} {{ valueWithVat }}
+          <span v-if="vatPreview" class="o1-whitespace-nowrap">
+            {{ __(vatPreview.label) }}: {{ vatPreview.value }} {{ field.currency }}
           </span>
         </div>
       </div>
@@ -97,15 +97,20 @@ export default {
       return step.includes('.') ? step.split('.')[1].length : 0;
     },
 
-    // Price including VAT, derived from the entered value and the checkbox state
-    valueWithVat() {
+    // The inverse of the entered value: the price without VAT when the input
+    // already includes it, and the price with VAT when it does not
+    vatPreview() {
       if (this.value === null || this.value === undefined || this.value === '' || isNaN(this.value)) return null;
       if (!this.field.vat || isNaN(this.field.vat)) return null;
 
       const value = Number(this.value);
-      const withVat = this.vatChecked ? value : value * (1 + this.field.vat / 100);
+      const rate = 1 + this.field.vat / 100;
+      const preview = this.vatChecked ? value / rate : value * rate;
 
-      return this.roundToPrecision(withVat).toFixed(this.precision);
+      return {
+        label: this.vatChecked ? 'currencyVatField.withoutVat' : 'currencyVatField.withVat',
+        value: this.roundToPrecision(preview).toFixed(this.precision),
+      };
     },
 
     defaultAttributes() {

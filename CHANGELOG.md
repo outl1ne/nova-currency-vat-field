@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added Nova 5 support
-- Added a live preview of the price including VAT next to the VAT checkbox
+- Added a live preview of the inverse price next to the VAT checkbox ("With VAT" / "Without VAT")
 
 ### Changed
 
