@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Added Nova 5 support
+- Added a live preview of the price including VAT next to the VAT checkbox
 
 ### Changed
 
@@ -21,6 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed dark mode styles never applying, as Tailwind's class prefix was also applied to the `dark` selector
+- Fixed missing spacing between the VAT checkbox and its label
+- Fixed a crash on zero-decimal currencies (eg. JPY), whose step value has no fraction
 - Removed leftover Nova 3 / Tailwind 1 classes that no longer generated any CSS
 
 ## [2.0.1] - 23-08-2022

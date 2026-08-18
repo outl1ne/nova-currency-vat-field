@@ -22,15 +22,16 @@
           />
         </div>
 
-        <CheckboxWithLabel
-          :disabled="false"
-          class="vat-checkbox o1-mt-2 o1-text-xs"
-          v-if="field.vat"
-          :checked="vatChecked"
-          @input="vatChanged"
-        >
-          {{ __('currencyVatField.priceIncludesVat') }} ({{ field.vat }}%)
-        </CheckboxWithLabel>
+        <div v-if="field.vat" class="o1-mt-2 o1-flex o1-items-center o1-justify-between o1-text-xs">
+          <CheckboxWithLabel :disabled="false" class="vat-checkbox" :checked="vatChecked" @input="vatChanged">
+            <!-- Wrapped in an element so Nova's `space-x-2` on CheckboxWithLabel applies, as it only spaces element siblings -->
+            <span>{{ __('currencyVatField.priceIncludesVat') }} ({{ field.vat }}%)</span>
+          </CheckboxWithLabel>
+
+          <span v-if="valueWithVat !== null" class="o1-whitespace-nowrap">
+            {{ field.currency }} {{ valueWithVat }}
+          </span>
+        </div>
       </div>
     </template>
   </DefaultField>
@@ -66,8 +67,12 @@ export default {
       formData.append(this.field.attribute, valueToSend || '');
     },
 
+    roundToPrecision(value) {
+      const factor = Math.pow(10, this.precision);
+      return Math.round(value * factor) / factor;
+    },
+
     getValueWithAdjustedVAT(value) {
-      const precision = this.field.step ? this.field.step.split('.')[1].length : 2;
       if (!value || isNaN(value)) return void 0;
 
       if (!this.field.vat || isNaN(this.field.vat)) return value;
@@ -76,24 +81,33 @@ export default {
       if (this.vatChecked && this.field.storedWithVat) return value;
       if (!this.vatChecked && !this.field.storedWithVat) return value;
 
-      let newValue = value;
-
       // If VAT is checked, it means the original should be without VAT
-      if (this.vatChecked) {
-        newValue = value / (1 + this.field.vat / 100);
-      } else {
-        newValue = value * (1 + this.field.vat / 100);
-      }
+      const newValue = this.vatChecked ? value / (1 + this.field.vat / 100) : value * (1 + this.field.vat / 100);
 
-      newValue *= Math.pow(10, precision);
-      newValue = Math.round(newValue);
-      newValue /= Math.pow(10, precision);
-
-      return newValue;
+      return this.roundToPrecision(newValue);
     },
   },
 
   computed: {
+    precision() {
+      if (!this.field.step) return 2;
+
+      // Zero-decimal currencies have a step without a fraction (eg. `1`)
+      const step = String(this.field.step);
+      return step.includes('.') ? step.split('.')[1].length : 0;
+    },
+
+    // Price including VAT, derived from the entered value and the checkbox state
+    valueWithVat() {
+      if (this.value === null || this.value === undefined || this.value === '' || isNaN(this.value)) return null;
+      if (!this.field.vat || isNaN(this.field.vat)) return null;
+
+      const value = Number(this.value);
+      const withVat = this.vatChecked ? value : value * (1 + this.field.vat / 100);
+
+      return this.roundToPrecision(withVat).toFixed(this.precision);
+    },
+
     defaultAttributes() {
       return {
         type: 'number',
