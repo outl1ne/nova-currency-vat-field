@@ -1,0 +1,37 @@
+dist/js/entry.js
+  s_acf98ceb962daf::t_03cc769c8f902b 1
+CHANGELOG.md
+  s_acf98ceb962daf::t_74691bd421a7aa 17-18,21-24
+  s_acf98ceb962daf::t_a05918845eea0a 25
+composer.json
+  s_acf98ceb962daf::t_297d1939c753f7 14,19
+dist/css/entry.css
+  s_acf98ceb962daf::t_8d447d76f605fa 1
+README.md
+  s_acf98ceb962daf::t_74691bd421a7aa 10
+tailwind.config.js
+  s_acf98ceb962daf::t_8d447d76f605fa 3-9,20
+  s_acf98ceb962daf::t_e06c87b145f5eb 10,14-19,21-22
+resources/js/components/FormField.vue
+  s_acf98ceb962daf::t_f151d1a84bb9a6 8
+src/CurrencyVAT.php
+  s_acf98ceb962daf::t_8d62930a45298e 14
+.gitignore
+  s_acf98ceb962daf::t_297d1939c753f7 12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "30a5ef7d3ce9558bd246a3e54bda59c780c748e5",
+  "prompts": {},
+  "sessions": {
+    "s_acf98ceb962daf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a41cc6e4-2a96-4f5b-8a72-e71305a974c8",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Tarvo Reinpalu <tarvo@versioon.ee>"
+    }
+  }
+}
