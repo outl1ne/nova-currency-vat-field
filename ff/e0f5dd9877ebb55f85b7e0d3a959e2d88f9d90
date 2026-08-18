@@ -1,0 +1,27 @@
+lang/et.json
+  s_acf98ceb962daf::t_5c2aef99c8efee 2-4
+dist/js/entry.js
+  s_acf98ceb962daf::t_42a128f58ba3bd 1
+CHANGELOG.md
+  s_acf98ceb962daf::t_08fdf88a5a8bdb 13
+lang/en.json
+  s_acf98ceb962daf::t_5c2aef99c8efee 2-4
+resources/js/components/FormField.vue
+  s_acf98ceb962daf::t_5c2aef99c8efee 31-32,100-102,107-108,110-113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.22",
+  "base_commit_sha": "ffe0f5dd9877ebb55f85b7e0d3a959e2d88f9d90",
+  "prompts": {},
+  "sessions": {
+    "s_acf98ceb962daf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a41cc6e4-2a96-4f5b-8a72-e71305a974c8",
+        "model": "claude-opus-5"
+      },
+      "human_author": "Tarvo Reinpalu <tarvo@versioon.ee>"
+    }
+  }
+}
