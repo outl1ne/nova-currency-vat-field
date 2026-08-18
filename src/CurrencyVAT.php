@@ -11,7 +11,7 @@ class CurrencyVAT extends Currency
 
     protected $storedWithVat = true;
 
-    public function __construct($name, $attribute = null, $resolveCallback = null)
+    public function __construct($name, mixed $attribute = null, ?callable $resolveCallback = null)
     {
         parent::__construct($name, $attribute, $resolveCallback);
 

@@ -7,7 +7,7 @@ This [Laravel Nova](https://nova.laravel.com/) package allows you to create and 
 
 ## Requirements
 
-- `php: >=8.0`
+- `php: >=8.1`
 - `laravel/nova: ^5.0`
 
 ## Features

@@ -14,7 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Dropped Nova 4 support
+- Dropped PHP 8.0 support
+- Colors now follow Nova's theme CSS variables instead of Tailwind's built-in palette
 - Updated packages
+
+### Fixed
+
+- Fixed dark mode styles never applying, as Tailwind's class prefix was also applied to the `dark` selector
+- Removed leftover Nova 3 / Tailwind 1 classes that no longer generated any CSS
 
 ## [2.0.1] - 23-08-2022
 
