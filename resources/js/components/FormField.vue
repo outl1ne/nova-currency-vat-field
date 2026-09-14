@@ -12,7 +12,7 @@
           </div>
 
           <input
-            class="o1-flex-shrink o1-flex-grow o1-flex-auto o1-leading-normal o1-w-px o1-flex-1 o1-rounded-l-none form-control form-input form-input-bordered"
+            class="o1-flex-shrink o1-flex-grow o1-flex-auto o1-leading-normal o1-w-px o1-rounded-l-none form-control form-input form-control-bordered"
             :id="field.attribute"
             :dusk="field.attribute"
             v-bind="extraAttributes"
