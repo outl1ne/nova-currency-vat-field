@@ -1,0 +1,18 @@
+dist/css/entry.css
+  h_525cf90f714c49 1
+dist/js/entry.js
+  h_525cf90f714c49 1
+resources/js/components/FormField.vue
+  h_525cf90f714c49 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e2f5219fd7ac6cf7f6064b13431459d2b122ecb1",
+  "prompts": {},
+  "humans": {
+    "h_525cf90f714c49": {
+      "author": "Tarvo Reinpalu <tarvo@versioon.ee>"
+    }
+  }
+}
