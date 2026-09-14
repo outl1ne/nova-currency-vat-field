@@ -7,7 +7,7 @@
             <span
               class="o1-flex o1-items-center o1-leading-normal o1-rounded o1-border o1-border-r-0 o1-border-gray-300 o1-px-3 o1-whitespace-nowrap o1-text-gray-600 o1-text-sm o1-font-bold dark:o1-border-gray-700 dark:o1-text-gray-400 o1-rounded-r-none"
             >
-              {{ field.currency }}
+              {{ currentField.currency }}
             </span>
           </div>
 
@@ -16,20 +16,25 @@
             :id="field.attribute"
             :dusk="field.attribute"
             v-bind="extraAttributes"
-            :disabled="isReadonly"
+            :disabled="currentlyIsReadonly"
             @input="handleChange"
             :value="value"
           />
         </div>
 
-        <div v-if="field.vat" class="o1-mt-2 o1-flex o1-items-center o1-justify-between o1-text-xs">
-          <CheckboxWithLabel :disabled="false" class="vat-checkbox" :checked="vatChecked" @input="vatChanged">
+        <div v-if="currentField.vat" class="o1-mt-2 o1-flex o1-items-center o1-justify-between o1-text-xs">
+          <CheckboxWithLabel
+            :disabled="currentlyIsReadonly"
+            class="vat-checkbox"
+            :checked="vatChecked"
+            @input="vatChanged"
+          >
             <!-- Wrapped in an element so Nova's `space-x-2` on CheckboxWithLabel applies, as it only spaces element siblings -->
-            <span>{{ __('currencyVatField.priceIncludesVat') }} ({{ field.vat }}%)</span>
+            <span>{{ __('currencyVatField.priceIncludesVat') }} ({{ currentField.vat }}%)</span>
           </CheckboxWithLabel>
 
           <span v-if="vatPreview" class="o1-whitespace-nowrap">
-            {{ __(vatPreview.label) }}: {{ vatPreview.value }} {{ field.currency }}
+            {{ __(vatPreview.label) }}: {{ vatPreview.value }} {{ currentField.currency }}
           </span>
         </div>
       </div>
@@ -55,7 +60,7 @@ export default {
     vatChanged(e) {
       this.vatChecked = e.target.checked;
 
-      if (this.field.updatesWithCheckbox) {
+      if (this.currentField.updatesWithCheckbox) {
         this.value = this.getValueWithAdjustedVAT(this.value);
       }
     },
@@ -75,14 +80,16 @@ export default {
     getValueWithAdjustedVAT(value) {
       if (!value || isNaN(value)) return void 0;
 
-      if (!this.field.vat || isNaN(this.field.vat)) return value;
+      if (!this.currentField.vat || isNaN(this.currentField.vat)) return value;
 
       // Same as original, no need to do anything
-      if (this.vatChecked && this.field.storedWithVat) return value;
-      if (!this.vatChecked && !this.field.storedWithVat) return value;
+      if (this.vatChecked && this.currentField.storedWithVat) return value;
+      if (!this.vatChecked && !this.currentField.storedWithVat) return value;
 
       // If VAT is checked, it means the original should be without VAT
-      const newValue = this.vatChecked ? value / (1 + this.field.vat / 100) : value * (1 + this.field.vat / 100);
+      const newValue = this.vatChecked
+        ? value / (1 + this.currentField.vat / 100)
+        : value * (1 + this.currentField.vat / 100);
 
       return this.roundToPrecision(newValue);
     },
@@ -90,10 +97,10 @@ export default {
 
   computed: {
     precision() {
-      if (!this.field.step) return 2;
+      if (!this.currentField.step) return 2;
 
       // Zero-decimal currencies have a step without a fraction (eg. `1`)
-      const step = String(this.field.step);
+      const step = String(this.currentField.step);
       return step.includes('.') ? step.split('.')[1].length : 0;
     },
 
@@ -101,10 +108,10 @@ export default {
     // already includes it, and the price with VAT when it does not
     vatPreview() {
       if (this.value === null || this.value === undefined || this.value === '' || isNaN(this.value)) return null;
-      if (!this.field.vat || isNaN(this.field.vat)) return null;
+      if (!this.currentField.vat || isNaN(this.currentField.vat)) return null;
 
       const value = Number(this.value);
-      const rate = 1 + this.field.vat / 100;
+      const rate = 1 + this.currentField.vat / 100;
       const preview = this.vatChecked ? value / rate : value * rate;
 
       return {
@@ -116,11 +123,11 @@ export default {
     defaultAttributes() {
       return {
         type: 'number',
-        min: this.field.min,
-        max: this.field.max,
-        step: this.field.step,
-        pattern: this.field.pattern,
-        placeholder: this.field.placeholder || this.field.name,
+        min: this.currentField.min,
+        max: this.currentField.max,
+        step: this.currentField.step,
+        pattern: this.currentField.pattern,
+        placeholder: this.placeholder,
         class: this.errorClasses,
       };
     },
@@ -128,7 +135,7 @@ export default {
     extraAttributes() {
       return {
         ...this.defaultAttributes,
-        ...this.field.extraAttributes,
+        ...this.currentField.extraAttributes,
       };
     },
   },
