@@ -1,0 +1,39 @@
+resources/js/vat.check.mjs
+  s_b87765e292dc3b::t_55c7bdcfdba8be 1-25
+README.md
+  s_b87765e292dc3b::t_36f2811fd3b3fe 38-39,44-61
+  s_b87765e292dc3b::t_bdbf5dbef6bac1 62
+resources/js/components/FormField.vue
+  s_b87765e292dc3b::t_620aada7d405ad 56-59,64-72,83-84,89-90,94,97-98,101-103,105-107,110,113-118,120-125,130-138,143-146
+  s_b87765e292dc3b::t_55c7bdcfdba8be 47
+  s_b87765e292dc3b::t_e87172d37da078 158,162
+  s_b87765e292dc3b::t_9b85b05488adeb 139-142
+  s_b87765e292dc3b::t_7cda68698f653f 74,77-82,91
+src/CurrencyVAT.php
+  s_b87765e292dc3b::t_7b98920462314f 44-53
+  s_b87765e292dc3b::t_2e6ea400847915 25
+CHANGELOG.md
+  s_b87765e292dc3b::t_94b54441c6f3c8 8-23
+package.json
+  s_b87765e292dc3b::t_eedf963e34de07 8
+dist/js/entry.js
+  s_b87765e292dc3b::t_bf166fcec8c242 1
+resources/js/vat.mjs
+  s_b87765e292dc3b::t_62f701f3cefabe 1-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2a4b9ea70de3e3f44e6a984a726d9b734305c588",
+  "prompts": {},
+  "sessions": {
+    "s_b87765e292dc3b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4912671d-5fd0-4e65-a2f9-87d34dee9a73",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Tarvo Reinpalu <tarvo@versioon.ee>"
+    }
+  }
+}
