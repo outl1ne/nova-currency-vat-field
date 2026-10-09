@@ -22,6 +22,7 @@ class CurrencyVAT extends Currency
 
         $this->VAT(0);
         $this->storedWithVAT();
+        $this->displayedWithVAT(false);
         $this->updatesWithCheckbox(false);
     }
 
@@ -38,6 +39,16 @@ class CurrencyVAT extends Currency
     public function storedWithoutVAT($storedWithoutVat = true)
     {
         return $this->withMeta(['storedWithVat' => !$storedWithoutVat]);
+    }
+
+    public function displayedWithVAT($displayedWithVat = true)
+    {
+        return $this->withMeta(['displayedWithVat' => $displayedWithVat]);
+    }
+
+    public function storedDecimals($storedDecimals)
+    {
+        return $this->withMeta(['storedDecimals' => $storedDecimals]);
     }
 
     public function VAT($vatPercentage = 0)

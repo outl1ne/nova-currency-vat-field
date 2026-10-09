@@ -5,6 +5,7 @@
     "watch": "mix watch",
     "hot": "mix watch --hot",
     "prod": "mix --production",
+    "test": "node resources/js/vat.check.mjs",
     "format": "prettier --write 'resources/**/*.{css,scss,js,vue}'"
   },
   "devDependencies": {

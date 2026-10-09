@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 09-10-2026
+
+### Added
+
+- Added `displayedWithVAT()` to have the form open with the VAT checkbox checked and the price shown with VAT, even when it's stored without VAT
+- Added `storedDecimals()` to store the price with more decimals than the currency has, so a price entered with VAT and stored without it is not off by a cent when shown again
+
+### Changed
+
+- A field that is saved without changing its value or checkbox now sends back the exact value it was loaded with
+
+### Fixed
+
+- Fixed a price of `0` being saved as `null`
+- Fixed `updatesWithCheckbox()` converting the value twice, once in the input and once more when saving
+
 ## [3.0.0] - 10-06-2026
 
 ### Added

@@ -44,6 +44,7 @@
 
 <script>
 import { DependentFormField, HandlesValidationErrors } from 'laravel-nova';
+import { applyVat, roundToPrecision } from '../vat.mjs';
 
 export default {
   mixins: [DependentFormField, HandlesValidationErrors],
@@ -52,50 +53,97 @@ export default {
 
   data() {
     return {
-      vatChecked: this.field.storedWithVat,
+      vatChecked: this.field.storedWithVat || this.field.displayedWithVat,
+
+      // The input's value and the checkbox state as derived from the stored value
+      pristine: {},
     };
   },
 
   methods: {
+    // Overrides DependentFormField, runs on creation and after a `dependsOn` sync
+    setInitialValue() {
+      const stored = this.currentField.value;
+      if (stored === undefined || stored === null) return;
+
+      this.value = this.toDisplayValue(stored);
+      this.pristine = { value: this.value, vatChecked: this.vatChecked };
+    },
+
     vatChanged(e) {
+      const untouched = this.untouched;
       this.vatChecked = e.target.checked;
 
-      if (this.currentField.updatesWithCheckbox) {
-        this.value = this.getValueWithAdjustedVAT(this.value);
+      if (!this.currentField.updatesWithCheckbox) return;
+
+      // Still showing the stored price, so derive it again instead of rounding the shown number once more
+      if (untouched) return this.setInitialValue();
+
+      if (this.hasVat && this.isNumeric(this.value)) {
+        // Checking adds VAT to the shown price, unchecking strips it
+        this.value = this.applyVat(this.value, this.vatChecked).toFixed(this.precision);
       }
     },
 
     fill(formData) {
-      const valueToSend = this.getValueWithAdjustedVAT(this.value);
+      // An untouched field sends the stored value back as-is, as converting
+      // it for the input and back again must never alter it
+      const valueToSend = this.untouched ? this.currentField.value : this.getValueWithAdjustedVAT(this.value);
 
       // NB! Always fall back to null
-      formData.append(this.field.attribute, valueToSend || '');
+      formData.append(this.field.attribute, valueToSend ?? '');
     },
 
-    roundToPrecision(value) {
-      const factor = Math.pow(10, this.precision);
-      return Math.round(value * factor) / factor;
+    applyVat(value, add, precision = this.precision) {
+      return applyVat(value, this.currentField.vat, add, precision);
     },
 
+    isNumeric(value) {
+      return value !== null && value !== undefined && value !== '' && !isNaN(value);
+    },
+
+    // The input's value as it gets stored
     getValueWithAdjustedVAT(value) {
-      if (!value || isNaN(value)) return void 0;
-
-      if (!this.currentField.vat || isNaN(this.currentField.vat)) return value;
+      if (!this.isNumeric(value)) return void 0;
 
       // Same as original, no need to do anything
-      if (this.vatChecked && this.currentField.storedWithVat) return value;
-      if (!this.vatChecked && !this.currentField.storedWithVat) return value;
+      if (!this.needsConversion) return value;
 
       // If VAT is checked, it means the original should be without VAT
-      const newValue = this.vatChecked
-        ? value / (1 + this.currentField.vat / 100)
-        : value * (1 + this.currentField.vat / 100);
+      return this.applyVat(value, !this.vatChecked, this.storedPrecision);
+    },
 
-      return this.roundToPrecision(newValue);
+    // The stored value as it gets shown in the input
+    toDisplayValue(stored) {
+      if (!this.isNumeric(stored)) return stored;
+
+      if (this.needsConversion) return this.applyVat(stored, this.vatChecked).toFixed(this.precision);
+
+      // The input's step rejects values with more decimals than its own
+      return this.storedPrecision > this.precision
+        ? roundToPrecision(stored, this.precision).toFixed(this.precision)
+        : stored;
     },
   },
 
   computed: {
+    hasVat() {
+      return !!this.currentField.vat && !isNaN(this.currentField.vat);
+    },
+
+    // The checkbox says the opposite of how the value is stored
+    needsConversion() {
+      return this.hasVat && Boolean(this.vatChecked) !== Boolean(this.currentField.storedWithVat);
+    },
+
+    untouched() {
+      return this.value === this.pristine.value && this.vatChecked === this.pristine.vatChecked;
+    },
+
+    storedPrecision() {
+      return this.currentField.storedDecimals ?? this.precision;
+    },
+
     precision() {
       if (!this.currentField.step) return 2;
 
@@ -107,16 +155,11 @@ export default {
     // The inverse of the entered value: the price without VAT when the input
     // already includes it, and the price with VAT when it does not
     vatPreview() {
-      if (this.value === null || this.value === undefined || this.value === '' || isNaN(this.value)) return null;
-      if (!this.currentField.vat || isNaN(this.currentField.vat)) return null;
-
-      const value = Number(this.value);
-      const rate = 1 + this.currentField.vat / 100;
-      const preview = this.vatChecked ? value / rate : value * rate;
+      if (!this.hasVat || !this.isNumeric(this.value)) return null;
 
       return {
         label: this.vatChecked ? 'currencyVatField.withoutVat' : 'currencyVatField.withVat',
-        value: this.roundToPrecision(preview).toFixed(this.precision),
+        value: this.applyVat(this.value, !this.vatChecked).toFixed(this.precision),
       };
     },
 
