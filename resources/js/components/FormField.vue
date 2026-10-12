@@ -18,6 +18,7 @@
             v-bind="extraAttributes"
             :disabled="currentlyIsReadonly"
             @input="handleChange"
+            @wheel="$event.target.blur()"
             :value="value"
           />
         </div>
