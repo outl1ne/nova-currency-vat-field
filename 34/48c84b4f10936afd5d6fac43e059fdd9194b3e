@@ -1,0 +1,21 @@
+resources/js/components/FormField.vue
+  s_764603edc57864::t_c93c5fecaa4919 21
+dist/js/entry.js
+  s_764603edc57864::t_1900fc4638aa03 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3448c84b4f10936afd5d6fac43e059fdd9194b3e",
+  "prompts": {},
+  "sessions": {
+    "s_764603edc57864": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "95eaba0d-f6e3-4fb7-939e-307a61deefdd",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Tarvo Reinpalu <tarvo@versioon.ee>"
+    }
+  }
+}
